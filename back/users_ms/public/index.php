@@ -1,16 +1,27 @@
 <?php
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Factory\AppFactory;
+    use Slim\Factory\AppFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+    require __DIR__ . '/../vendor/autoload.php';
+    require __DIR__ . '/../app/Config/database.php';
 
-$app = AppFactory::create();
+    $app = AppFactory::create();
 
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
-    return $response;
-});
-
-$app->run();
+    // Prueba
+    $app->get('/test', function ($request, $response) {
+        $payload = json_encode([
+            'status' => 'success',
+            'message' => 'API funcionando correctamente'
+        ]);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    });
+    // Cargar CORS primero
+    $cors = require __DIR__ . '/../app/middleware/Cors.php';
+    $cors($app);
+    // Cargar endpoints
+    $endpoints = require __DIR__ . '/../app/endpoints/Routers.php';
+    $endpoints($app);
+    // Error middleware al final
+    $app->addErrorMiddleware(true, true, true);
+    $app->run();
 ?>

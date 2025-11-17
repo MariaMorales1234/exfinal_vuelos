@@ -1,0 +1,61 @@
+#users_ms
+### prueba
+GET http://127.0.0.1:8000/test
+
+### Login (Administrador)
+POST http://127.0.0.1:8000/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@system.com",
+  "password": "admin123"
+}
+
+### Login (Gestor)
+POST http://127.0.0.1:8000/auth/login
+Content-Type: application/json
+
+{
+  "email": "gestor@system.com",
+  "password": "gestor123"
+}
+
+### Validar Token
+GET http://127.0.0.1:8000/auth/validate
+Authorization: Bearer a2044ef4
+
+### Cerrar Sesión
+POST http://127.0.0.1:8000/auth/logout
+Authorization: Bearer a2044ef4
+
+### Listar todos los usuarios
+GET http://127.0.0.1:8000/user
+Authorization: Bearer 6b01237c
+
+### Ver usuario específico
+GET http://127.0.0.1:8000/user/1
+Authorization: Bearer 6b01237c
+
+### Crear nuevo usuario (Gestor)
+POST http://127.0.0.1:8000/user
+Authorization: Bearer 6b108cee
+Content-Type: application/json
+
+{
+  "name": "Juan Perez",
+  "email": "juan@test.com",
+  "password": "123456",
+  "role": "gestor"
+}
+
+### Crear nuevo usuario (Administrador)
+POST http://127.0.0.1:8000/user
+Authorization: Bearer 6b108cee
+Content-Type: application/json
+
+{
+  "name": "Maria Garcia",
+  "email": "maria@test.com",
+  "password": "123456",
+  "role": "administrador"
+}

@@ -6,9 +6,9 @@
     $capsule->addConnection([
         'driver'    => 'mysql',
         'host'      => '127.0.0.1',
-        'database'  => 'mi_base',
+        'database'  => 'vuelos_app',
         'username'  => 'root',
-        'password'  => '',
+        'password'  => '12345*QWE',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
