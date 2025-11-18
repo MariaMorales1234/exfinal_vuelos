@@ -32,7 +32,7 @@
     
         public function logout($userId){
             if (empty($userId)) {
-                throw new Exception("ID de usuario no proporcionado", 400);
+                throw new Exception("ID de usuario no encontrado", 400);
             }
             $user = User::find($userId);
             if (empty($user)) {
@@ -45,7 +45,7 @@
     
         public function validate($userId){
             if (empty($userId)) {
-                throw new Exception("ID de usuario no proporcionado", 400);
+                throw new Exception("ID de usuario encontrado", 400);
             }
             $user = User::find($userId);
             if (empty($user)) {

@@ -10,11 +10,12 @@
     $app->get('/test', function ($request, $response) {
         $payload = json_encode([
             'status' => 'success',
-            'message' => 'API funcionando correctamente'
+            'message' => 'funcionando'
         ]);
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     });
+    //pruebagf
     // Cargar CORS primero
     $cors = require __DIR__ . '/../app/middleware/Cors.php';
     $cors($app);

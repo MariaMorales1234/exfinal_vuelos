@@ -22,23 +22,23 @@ Content-Type: application/json
 
 ### Validar Token
 GET http://127.0.0.1:8000/auth/validate
-Authorization: Bearer a2044ef4
+Authorization: Bearer 8ed926b8
 
 ### Cerrar Sesión
 POST http://127.0.0.1:8000/auth/logout
-Authorization: Bearer a2044ef4
+Authorization: Bearer 8ed926b8
 
 ### Listar todos los usuarios
-GET http://127.0.0.1:8000/user
-Authorization: Bearer 6b01237c
+GET http://127.0.0.1:8000/users
+Authorization: Bearer d792a983
 
 ### Ver usuario específico
 GET http://127.0.0.1:8000/user/1
 Authorization: Bearer 6b01237c
 
 ### Crear nuevo usuario (Gestor)
-POST http://127.0.0.1:8000/user
-Authorization: Bearer 6b108cee
+POST http://127.0.0.1:8000/users
+Authorization: Bearer d792a983
 Content-Type: application/json
 
 {
@@ -49,8 +49,8 @@ Content-Type: application/json
 }
 
 ### Crear nuevo usuario (Administrador)
-POST http://127.0.0.1:8000/user
-Authorization: Bearer 6b108cee
+POST http://127.0.0.1:8000/users
+Authorization: Bearer 4b591b98
 Content-Type: application/json
 
 {
@@ -59,3 +59,27 @@ Content-Type: application/json
   "password": "123456",
   "role": "administrador"
 }
+
+### Actualizar usuario
+PUT http://127.0.0.1:8000/users/3
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "name": "Juan Pérez Actualizado",
+  "email": "juan.nuevo@test.com",
+  "password": "nueva123"
+}
+
+### Actualizar solo el rol
+PUT http://127.0.0.1:8000/users/3
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "role": "administrador"
+}
+
+### Eliminar usuario
+DELETE http://127.0.0.1:8000/users/3
+Authorization: Bearer 

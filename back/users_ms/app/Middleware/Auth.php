@@ -35,7 +35,6 @@
                     ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(401);
             }
-            // Agregar el usuario al request para uso posterior
             $request = $request->withAttribute('user', $user);
             return $handler->handle($request);
         }

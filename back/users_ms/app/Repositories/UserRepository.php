@@ -6,7 +6,7 @@
     use Psr\Http\Message\ResponseInterface as Response;
     use Psr\Http\Message\ServerRequestInterface as Request;
 
-    class UserRepository{
+    class UserRepository {
         private $controller;
     
         public function __construct(){
@@ -17,35 +17,35 @@
             try {
                 $result = $this->controller->index();
                 if ($result === null) {
-                    $response->getBody()->write(json_encode([
+                    $payload = json_encode([
                         'status' => 'success',
                         'message' => 'No hay usuarios registrados',
                         'data' => []
-                    ]));
+                    ], JSON_UNESCAPED_UNICODE);
+                    $response->getBody()->write($payload);
                     return $response
-                        ->withHeader('Content-Type', 'application/json')
+                        ->withHeader('Content-Type', 'application/json; charset=utf-8')
                         ->withStatus(200);
                 }
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'success',
                     'message' => 'Usuarios obtenidos correctamente',
                     'data' => json_decode($result)
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(200);
-                
             } catch (Exception $e) {
                 $statusCode = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-            
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'error',
                     'message' => $e->getMessage(),
                     'data' => null
-                ]));
-            
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus($statusCode);
             }
         }
@@ -53,73 +53,96 @@
         public function detail(Request $request, Response $response, array $args){
             try {
                 $result = $this->controller->detail($args['id']);
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'success',
                     'message' => 'Usuario obtenido correctamente',
                     'data' => json_decode($result)
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(200);
-            } catch (Exception $e) {
+            }catch (Exception $e) {
                 $statusCode = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'error',
                     'message' => $e->getMessage(),
                     'data' => null
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus($statusCode);
             }
         }
     
         public function create(Request $request, Response $response){
             try {
-                $data = json_decode($request->getBody()->getContents(), true);
+                // Obtener el cuerpo de la petición
+                $body = $request->getBody()->getContents();
+                $data = json_decode($body, true);
+                // Validar que el JSON sea válido
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    throw new Exception("JSON invalido", 400);
+                }
+                // Validar que $data no sea null
+                if ($data === null) {
+                    throw new Exception("Datos no proporcionados", 400);
+                }
                 $result = $this->controller->create($data);
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'success',
                     'message' => 'Usuario creado exitosamente',
                     'data' => json_decode($result)
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(201);
             } catch (Exception $e) {
                 $statusCode = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'error',
                     'message' => $e->getMessage(),
                     'data' => null
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus($statusCode);
             }
         }
     
         public function update(Request $request, Response $response, array $args){
             try {
-                $data = json_decode($request->getBody()->getContents(), true);
+                $body = $request->getBody()->getContents();
+                $data = json_decode($body, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    throw new Exception("JSON invalido", 400);
+                }
+                if ($data === null) {
+                    throw new Exception("Datos no proporcionados", 400);
+                }
                 $result = $this->controller->update($args['id'], $data);
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'success',
                     'message' => 'Usuario actualizado exitosamente',
                     'data' => json_decode($result)
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(200);
             } catch (Exception $e) {
                 $statusCode = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'error',
                     'message' => $e->getMessage(),
                     'data' => null
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus($statusCode);
             }
         }
@@ -127,23 +150,25 @@
         public function delete(Request $request, Response $response, array $args){
             try {
                 $this->controller->delete($args['id']);
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'success',
                     'message' => 'Usuario eliminado exitosamente',
                     'data' => null
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(200);
             } catch (Exception $e) {
                 $statusCode = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-                $response->getBody()->write(json_encode([
+                $payload = json_encode([
                     'status' => 'error',
                     'message' => $e->getMessage(),
                     'data' => null
-                ]));
+                ], JSON_UNESCAPED_UNICODE);
+                $response->getBody()->write($payload);
                 return $response
-                    ->withHeader('Content-Type', 'application/json')
+                    ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus($statusCode);
             }
         }
