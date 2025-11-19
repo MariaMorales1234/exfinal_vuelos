@@ -2,14 +2,14 @@
     use Slim\Factory\AppFactory;
 
     require __DIR__ . '/../vendor/autoload.php';
+    require __DIR__ . '/../app/Config/database.php';
 
     $app = AppFactory::create();
 
     $cors = require __DIR__ . '/../app/middleware/Cors.php';
     $cors($app);
 
-    // Cargar rutas por entidad
-    $naveRoutes = require __DIR__ . '/../app/endpoints/NaveRoutes.php';
+    $naveRoutes = require __DIR__ . '/../app/endpoints/NaveRouters.php';
     $naveRoutes($app);
 
     // Cuando agregues vuelos:
