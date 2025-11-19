@@ -41,3 +41,68 @@ Content-Type: application/json
 ### Eliminar nave
 DELETE http://127.0.0.1:8001/naves/4
 Authorization: Bearer 48d2798e
+
+#Vuelos
+### Listar todos los vuelos
+GET http://127.0.0.1:8001/flights
+Authorization: Bearer 48d2798e
+
+### Ver vuelo específico
+GET http://127.0.0.1:8001/flights/1
+Authorization: Bearer 48d2798e
+
+### Buscar vuelos por origen
+GET http://127.0.0.1:8001/flights/search?origin=Bogotá
+Authorization: Bearer 48d2798e
+
+### Buscar vuelos por destino
+GET http://127.0.0.1:8001/flights/search?destination=Medellín
+Authorization: Bearer 48d2798e
+
+### Buscar vuelos por fecha
+GET http://127.0.0.1:8001/flights/search?date=2025-12-01
+Authorization: Bearer 48d2798e
+### Buscar vuelos con múltiples criterios
+GET http://127.0.0.1:8001/flights/search?origin=Bogotá&destination=Cali&date=2025-12-02
+Authorization: Bearer 48d2798e
+
+### Crear nuevo vuelo
+POST http://127.0.0.1:8001/flights
+Authorization: Bearer 48d2798e
+Content-Type: application/json
+
+{
+  "nave_id": 1,
+  "origin": "Bogotá",
+  "destination": "Santa Marta",
+  "departure": "2025-12-15 09:00:00",
+  "arrival": "2025-12-15 10:30:00",
+  "price": 320000
+}
+
+### Actualizar vuelo completo
+PUT http://127.0.0.1:8001/flights/1
+Authorization: Bearer 48d2798e
+Content-Type: application/json
+
+{
+  "nave_id": 2,
+  "origin": "Bogotá",
+  "destination": "Medellín",
+  "departure": "2025-12-01 08:30:00",
+  "arrival": "2025-12-01 09:30:00",
+  "price": 220000
+}
+
+### Actualizar solo el precio
+PUT http://127.0.0.1:8001/flights/1
+Authorization: Bearer 48d2798e
+Content-Type: application/json
+
+{
+  "price": 180000
+}
+
+### Eliminar vuelo
+DELETE http://127.0.0.1:8001/flights/5
+Authorization: Bearer 48d2798e
