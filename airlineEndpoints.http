@@ -1,0 +1,43 @@
+#Naves
+### Listar todas las naves
+GET http://127.0.0.1:8001/naves
+Authorization: Bearer 
+
+### Ver nave específica
+GET http://127.0.0.1:8001/naves/1
+Authorization: Bearer 
+
+### Crear nueva nave
+POST http://127.0.0.1:8001/naves
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "name": "Aeronave D4",
+  "capacity": 200,
+  "model": "Boeing 777"
+}
+
+### Actualizar nave
+PUT http://127.0.0.1:8001/naves/1
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "name": "Aeronave A1 Modificada",
+  "capacity": 190,
+  "model": "Airbus A320neo"
+}
+
+### 5. Actualizar solo la capacidad
+PUT http://127.0.0.1:8001/naves/1
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "capacity": 200
+}
+
+### 6. Eliminar nave
+DELETE http://127.0.0.1:8001/naves/4
+Authorization: Bearer 

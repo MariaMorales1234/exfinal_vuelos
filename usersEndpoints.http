@@ -33,7 +33,7 @@ GET http://127.0.0.1:8000/users
 Authorization: Bearer d792a983
 
 ### Ver usuario específico
-GET http://127.0.0.1:8000/user/1
+GET http://127.0.0.1:8000/users/1
 Authorization: Bearer 6b01237c
 
 ### Crear nuevo usuario (Gestor)
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 ### Crear nuevo usuario (Administrador)
 POST http://127.0.0.1:8000/users
-Authorization: Bearer 4b591b98
+Authorization: Bearer e5d733b3
 Content-Type: application/json
 
 {
@@ -61,8 +61,8 @@ Content-Type: application/json
 }
 
 ### Actualizar usuario
-PUT http://127.0.0.1:8000/users/3
-Authorization: Bearer 
+PUT http://127.0.0.1:8000/users/4
+Authorization: Bearer e5d733b3
 Content-Type: application/json
 
 {
@@ -72,14 +72,14 @@ Content-Type: application/json
 }
 
 ### Actualizar solo el rol
-PUT http://127.0.0.1:8000/users/3
-Authorization: Bearer 
+PUT http://127.0.0.1:8000/users/4
+Authorization: Bearer e5d733b3
 Content-Type: application/json
 
 {
-  "role": "administrador"
+  "role": "gestor"
 }
 
 ### Eliminar usuario
-DELETE http://127.0.0.1:8000/users/3
-Authorization: Bearer 
+DELETE http://127.0.0.1:8000/users/4
+Authorization: Bearer e5d733b3
