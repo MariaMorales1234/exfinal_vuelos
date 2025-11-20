@@ -15,11 +15,11 @@
     
         public function detail($id){
             if (empty($id)) {
-                throw new Exception("ID null", 2);
+                throw new Exception("ID null", 400);
             }
             $user = User::find($id);
             if (empty($user)) {
-                throw new Exception("User null", 1);
+                throw new Exception("User null", 404);
             }
             return $user->toJson();
         }
@@ -44,11 +44,11 @@
     
         public function update($id, $data){
             if (empty($id)) {
-                throw new Exception("ID null", 2);
+                throw new Exception("ID null", 400);
             }
             $user = User::find($id);
             if (empty($user)) {
-                throw new Exception("User null", 1);
+                throw new Exception("User null", 404);
             }
             if (!empty($data['name'])) {
                 $user->name = $data['name'];
@@ -68,11 +68,11 @@
     
         public function delete($id){
             if (empty($id)) {
-                throw new Exception("ID null", 2);
+                throw new Exception("ID null", 400);
             }
             $user = User::find($id);
             if (empty($user)) {
-                throw new Exception("User null", 1);
+                throw new Exception("User null", 404);
             }
             if (!$user->delete()) {
                 throw new Exception("Error al eliminar usuario", 500);

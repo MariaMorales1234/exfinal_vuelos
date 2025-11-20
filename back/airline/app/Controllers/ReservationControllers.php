@@ -16,18 +16,18 @@
     
         public function detail($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $reservation = Reservation::with('flight.nave')->find($id);
             if (empty($reservation)) {
-                throw new Exception("Reserva no encontrada", 404);
+                throw new Exception("Reservation null", 404);
             }
             return $reservation->toJson();
         }
     
         public function getByUser($userId){
             if (empty($userId)) {
-                throw new Exception("ID de usuario no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $reservations = Reservation::with('flight.nave')
                 ->where('user_id', $userId)
@@ -60,11 +60,11 @@
     
         public function cancel($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $reservation = Reservation::find($id);
             if (empty($reservation)) {
-                throw new Exception("Reserva no encontrada", 404);
+                throw new Exception("Reservation null", 404);
             }
             if ($reservation->status === 'cancelada') {
                 throw new Exception("La reserva ya está cancelada", 400);
@@ -77,11 +77,11 @@
     
         public function delete($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $reservation = Reservation::find($id);
             if (empty($reservation)) {
-                throw new Exception("Reserva no encontrada", 404);
+                throw new Exception("Reservation null", 404);
             }
             if (!$reservation->delete()) {
                 throw new Exception("Error al eliminar reserva", 500);

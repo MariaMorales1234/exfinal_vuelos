@@ -6,7 +6,6 @@
 
     $app = AppFactory::create();
 
-    // Prueba
     $app->get('/test', function ($request, $response) {
         $payload = json_encode([
             'status' => 'success',
@@ -15,14 +14,12 @@
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     });
-    //pruebagf
-    // Cargar CORS primero
     $cors = require __DIR__ . '/../app/middleware/Cors.php';
     $cors($app);
-    // Cargar endpoints
+
     $endpoints = require __DIR__ . '/../app/endpoints/Routes.php';
     $endpoints($app);
-    // Error middleware al final
+
     $app->addErrorMiddleware(true, true, true);
     $app->run();
 ?>

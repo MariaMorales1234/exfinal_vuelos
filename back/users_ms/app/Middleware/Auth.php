@@ -28,7 +28,7 @@
                 $response = new SlimResponse();
                 $response->getBody()->write(json_encode([
                     'status' => 'error',
-                    'message' => 'Token invalido o expirado',
+                    'message' => 'Token invalido',
                     'data' => null
                 ], JSON_UNESCAPED_UNICODE));
                 return $response

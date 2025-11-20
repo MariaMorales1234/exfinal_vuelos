@@ -32,11 +32,11 @@
     
         public function logout($userId){
             if (empty($userId)) {
-                throw new Exception("ID de usuario no encontrado", 400);
+                throw new Exception("ID null", 400);
             }
             $user = User::find($userId);
             if (empty($user)) {
-                throw new Exception("Usuario no encontrado", 404);
+                throw new Exception("User null", 404);
             }
             $user->token = null;
             $user->save();
@@ -45,11 +45,11 @@
     
         public function validate($userId){
             if (empty($userId)) {
-                throw new Exception("ID de usuario encontrado", 400);
+                throw new Exception("ID null", 400);
             }
             $user = User::find($userId);
             if (empty($user)) {
-                throw new Exception("Usuario no encontrado", 404);
+                throw new Exception("User null", 404);
             }
             return json_encode([
                 'valid' => true,

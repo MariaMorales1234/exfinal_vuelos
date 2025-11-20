@@ -15,11 +15,11 @@
     
         public function detail($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $nave = Nave::find($id);
             if (empty($nave)) {
-                throw new Exception("Nave no encontrada", 404);
+                throw new Exception("Plane null", 404);
             }
             return $nave->toJson();
         }
@@ -38,11 +38,11 @@
     
         public function update($id, $data){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $nave = Nave::find($id);
             if (empty($nave)) {
-                throw new Exception("Nave no encontrada", 404);
+                throw new Exception("Plane null", 404);
             }
             if (!empty($data['name'])) {
                 $nave->name = $data['name'];
@@ -59,16 +59,17 @@
     
         public function delete($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $nave = Nave::find($id);
             if (empty($nave)) {
-                throw new Exception("Nave no encontrada", 404);
+                throw new Exception("Plane null", 404);
             }
             if (!$nave->delete()) {
                 throw new Exception("Error al eliminar nave", 500);
             }
             return true;
         }
+    
     }
 ?>

@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Eliminar nave
-DELETE http://127.0.0.1:8001/naves/4
+DELETE http://127.0.0.1:8001/naves/5
 Authorization: Bearer 48d2798e
 
 #Vuelos
@@ -107,3 +107,34 @@ Content-Type: application/json
 ### Eliminar vuelo
 DELETE http://127.0.0.1:8001/flights/5
 Authorization: Bearer 48d2798e
+
+#Reservaciones
+### Listar todas las reservas
+GET http://127.0.0.1:8001/reservations
+Authorization: Bearer 142e3d2b
+
+### Ver reserva específica
+GET http://127.0.0.1:8001/reservations/1
+Authorization: Bearer 142e3d2b
+
+### Obtener reservas por usuario
+GET http://127.0.0.1:8001/reservations/user/2
+Authorization: Bearer 142e3d2b
+
+### Crear nueva reserva
+POST http://127.0.0.1:8001/reservations
+Authorization: Bearer 142e3d2b
+Content-Type: application/json
+
+{
+  "user_id": 2,
+  "flight_id": 1
+}
+
+### Cancelar reserva
+PATCH http://127.0.0.1:8001/reservations/4/cancel
+Authorization: Bearer 142e3d2b
+
+### Eliminar reserva
+DELETE http://127.0.0.1:8001/reservations/4
+Authorization: Bearer 142e3d2b

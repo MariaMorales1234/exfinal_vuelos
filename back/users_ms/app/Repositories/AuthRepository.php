@@ -46,7 +46,7 @@
                 $this->controller->logout($user->id);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Sesion cerrada exitosamente',
+                    'message' => 'Has cerrado sesion',
                     'data' => null
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);

@@ -29,7 +29,7 @@
                 }
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Usuarios obtenidos correctamente',
+                    'message' => 'Usuarios obtenidos',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -55,7 +55,7 @@
                 $result = $this->controller->detail($args['id']);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Usuario obtenido correctamente',
+                    'message' => 'Usuario obtenido',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -92,7 +92,7 @@
                 $result = $this->controller->create($data);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Usuario creado exitosamente',
+                    'message' => 'Usuario creado',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -126,7 +126,7 @@
                 $result = $this->controller->update($args['id'], $data);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Usuario actualizado exitosamente',
+                    'message' => 'Usuario actualizado',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -152,7 +152,7 @@
                 $this->controller->delete($args['id']);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Usuario eliminado exitosamente',
+                    'message' => 'Usuario eliminado',
                     'data' => null
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);

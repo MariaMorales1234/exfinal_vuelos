@@ -16,11 +16,11 @@
 
         function detail($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $flight = Flight::with('nave')->find($id);
             if (empty($flight)) {
-                throw new Exception("Vuelo no encontrado", 404);
+                throw new Exception("Flight null", 404);
             }
             return $flight->toJson();
         }
@@ -66,11 +66,11 @@
 
         function update($id, $data){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $flight = Flight::find($id);
             if (empty($flight)) {
-                throw new Exception("Vuelo no encontrado", 404);
+                throw new Exception("Flight null", 404);
             }
             if (!empty($data['nave_id'])) {
                 // Verificar que la nave existe
@@ -101,11 +101,11 @@
 
         function delete($id){
             if (empty($id)) {
-                throw new Exception("ID no proporcionado", 400);
+                throw new Exception("ID null", 400);
             }
             $flight = Flight::find($id);
             if (empty($flight)) {
-                throw new Exception("Vuelo no encontrado", 404);
+                throw new Exception("Flight null", 404);
             }
             if (!$flight->delete()) {
                 throw new Exception("Error al eliminar vuelo", 500);

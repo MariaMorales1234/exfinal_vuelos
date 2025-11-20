@@ -28,7 +28,7 @@
                 }
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reservas obtenidas correctamente',
+                    'message' => 'Reservas obtenidas',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -54,7 +54,7 @@
                 $result = $this->controller->detail($args['id']);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reserva obtenida correctamente',
+                    'message' => 'Reserva obtenida',
                         'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -91,7 +91,7 @@
                 }
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reservas del usuario obtenidas correctamente',
+                    'message' => 'Reservas del usuario obtenidas',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -125,7 +125,7 @@
                 $result = $this->controller->create($data);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reserva creada exitosamente',
+                    'message' => 'Reserva creada',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -151,7 +151,7 @@
                 $result = $this->controller->cancel($args['id']);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reserva cancelada exitosamente',
+                    'message' => 'Reserva cancelada',
                     'data' => json_decode($result)
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
@@ -177,7 +177,7 @@
                 $this->controller->delete($args['id']);
                 $payload = json_encode([
                     'status' => 'success',
-                    'message' => 'Reserva eliminada exitosamente',
+                    'message' => 'Reserva eliminada',
                     'data' => null
                 ], JSON_UNESCAPED_UNICODE);
                 $response->getBody()->write($payload);
