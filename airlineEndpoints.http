@@ -62,6 +62,7 @@ Authorization: Bearer 48d2798e
 ### Buscar vuelos por fecha
 GET http://127.0.0.1:8001/flights/search?date=2025-12-01
 Authorization: Bearer 48d2798e
+
 ### Buscar vuelos con múltiples criterios
 GET http://127.0.0.1:8001/flights/search?origin=Bogotá&destination=Cali&date=2025-12-02
 Authorization: Bearer 48d2798e
