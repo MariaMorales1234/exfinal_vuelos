@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <div class="dashboard">
+            <aside class="sidebar">
+                <h2>Administrador</h2>
+                <div class="user-info" id="userInfo"></div>
+                <nav>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="usuarios.html">Usuarios</a>
+                    <a href="naves.html">Naves</a>
+                    <a href="vuelos.html">Vuelos</a>
+                </nav>
+                <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+            </aside>
+            <main class="main-content">
+                <div class="header">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Usuarios</h3>
+                        <p class="stat-number" id="totalUsers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Naves</h3>
+                        <p class="stat-number" id="totalNaves">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Vuelos</h3>
+                        <p class="stat-number" id="totalFlights">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Reservas</h3>
+                        <p class="stat-number" id="totalReservations">0</p>
+                    </div>
+                </div>
+                <div class="dashboard-info">
+                    <h2>Bienvenido al Sistema de Gestión de Vuelos</h2>
+                    <p>Utiliza el menú lateral para navegar entre las diferentes secciones.</p>
+                </div>
+            </main>
+        </div>
+        <script src="../js/config.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/api/users.js"></script>
+        <script src="../js/api/nave.js"></script>
+        <script src="../js/api/flight.js"></script>
+        <script src="../js/api/reservation.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/pages/admin/dashboard.js"></script>
+    </body>
+</html>

@@ -1,4 +1,3 @@
-// Inicialización de la página de login
 document.addEventListener('DOMContentLoaded', () => {
     // Verificar si ya está logueado
     if (isAuthenticated()) {

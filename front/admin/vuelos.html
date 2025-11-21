@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="dashboard">
+            <aside class="sidebar">
+                <h2>Administrador</h2>
+                <div class="user-info" id="userInfo"></div>
+                <nav>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="usuarios.html">Usuarios</a>
+                    <a href="naves.html">Naves</a>
+                    <a href="vuelos.html">Vuelos</a>
+                </nav>
+                <button id="logoutBtn" class="btn btn-danger" style="margin-top: 20px;">Cerrar Sesión</button>
+            </aside>
+            <main class="main-content">
+                <div class="header">
+                    <h1>Gestión de Vuelos</h1>
+                    <button id="btnNewFlight" class="btn btn-success">+ Nuevo Vuelo</button>
+                </div>
+                <div class="filters-container">
+                    <div class="form-group">
+                        <label for="filterOrigin">Origen</label>
+                        <input type="text" id="filterOrigin" placeholder="Buscar por origen">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterDestination">Destino</label>
+                        <input type="text" id="filterDestination" placeholder="Buscar por destino">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterDate">Fecha</label>
+                        <input type="date" id="filterDate">
+                    </div>
+                    <button id="btnSearch" class="btn btn-primary">Buscar</button>
+                    <button id="btnClearFilters" class="btn btn-warning">Limpiar</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nave</th>
+                                <th>Origen</th>
+                                <th>Destino</th>
+                                <th>Salida</th>
+                                <th>Llegada</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flightsTableBody">
+                            <tr>
+                                <td colspan="8" style="text-align: center;">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <div id="flightModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Nuevo Vuelo</h2>
+                <form id="flightForm">
+                    <input type="hidden" id="flightId">
+                    <div class="form-group">
+                        <label for="flightNave">Nave</label>
+                        <select id="flightNave" required>
+                            <option value="">Seleccione una nave</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightOrigin">Origen</label>
+                        <input type="text" id="flightOrigin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightDestination">Destino</label>
+                        <input type="text" id="flightDestination" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightDeparture">Fecha y Hora de Salida</label>
+                        <input type="datetime-local" id="flightDeparture" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightArrival">Fecha y Hora de Llegada</label>
+                        <input type="datetime-local" id="flightArrival" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flightPrice">Precio</label>
+                        <input type="number" id="flightPrice" min="0" step="1000" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" id="btnCancelFlight" class="btn btn-danger">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="../js/config.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/api/users.js"></script>
+        <script src="../js/api/nave.js"></script>
+        <script src="../js/api/flight.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/pages/admin/vuelos.js"></script>
+    </body>
+</html>

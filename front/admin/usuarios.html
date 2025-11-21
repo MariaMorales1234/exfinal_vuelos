@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="dashboard">
+            <aside class="sidebar">
+                <h2>Administrador</h2>
+                <div class="user-info" id="userInfo"></div>
+                <nav>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="usuarios.html">Usuarios</a>
+                    <a href="naves.html">Naves</a>
+                    <a href="vuelos.html">Vuelos</a>
+                </nav>
+                <button id="logoutBtn" class="btn btn-danger" style="margin-top: 20px;">Cerrar Sesión</button>
+            </aside>
+            <main class="main-content">
+                <div class="header">
+                    <h1>Gestión de Usuarios</h1>
+                    <button id="btnNewUser" class="btn btn-success">+ Nuevo Usuario</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Cargando...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <div id="userModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Nuevo Usuario</h2>
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+                    <div class="form-group">
+                        <label for="userName">Nombre</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPassword">Contraseña</label>
+                        <input type="password" id="userPassword">
+                        <small id="passwordHelper">Deja en blanco para mantener la actual</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="userRole">Rol</label>
+                        <select id="userRole" required>
+                            <option value="gestor">Gestor</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" id="btnCancelUser" class="btn btn-danger">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="../js/config.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/api/users.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/pages/admin/usuarios.js"></script>
+    </body>
+</html>
