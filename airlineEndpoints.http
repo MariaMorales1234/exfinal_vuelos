@@ -111,7 +111,7 @@ Authorization: Bearer 48d2798e
 #Reservaciones
 ### Listar todas las reservas
 GET http://127.0.0.1:8001/reservations
-Authorization: Bearer 142e3d2b
+Authorization: Bearer c4a61286
 
 ### Ver reserva específica
 GET http://127.0.0.1:8001/reservations/1

@@ -55,6 +55,7 @@ const loadMyReservations = async () => {
             tbody.innerHTML = response.data.map(reservation => `
                 <tr>
                     <td>${reservation.id}</td>
+                    <td>${reservation.user_id}</td>
                     <td>#${reservation.flight_id}</td>
                     <td>${reservation.flight ? reservation.flight.origin : 'N/A'}</td>
                     <td>${reservation.flight ? reservation.flight.destination : 'N/A'}</td>
