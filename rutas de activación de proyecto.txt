@@ -1,0 +1,8 @@
+rutas de activación de proyecto
+usuarios:php -S 127.0.0.1:8000 -t public
+aerolínea:php -S 127.0.0.1:8001 -t public
+front:php -S 127.0.0.1:8002
+
+Datos de prueba
+Administrador: admin@system.com / admin123
+Gestor: gestor@system.com / gestor123
