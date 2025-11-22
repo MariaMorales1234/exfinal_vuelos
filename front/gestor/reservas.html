@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="dashboard">
+            <aside class="sidebar">
+                <h2>Gestor</h2>
+                <div class="user-info" id="userInfo"></div>
+                <nav>
+                    <a href="dashboard.html">Catálogo de Vuelos</a>
+                    <a href="reservas.html">Mis Reservas</a>
+                </nav>
+                <button id="logoutBtn" class="btn btn-danger" style="margin-top: 20px;">Cerrar Sesión</button>
+            </aside>
+            <main class="main-content">
+                <div class="header">
+                    <h1>Gestión de Reservas</h1>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="my-reservations">Mis Reservas</button>
+                    <button class="tab-btn" data-tab="all-reservations">Todas las Reservas</button>
+                    <button class="tab-btn" data-tab="by-user">Buscar por Usuario</button>
+                </div>
+                <div id="my-reservations" class="tab-content active">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vuelo</th>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Fecha Salida</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myReservationsBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Cargando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="all-reservations" class="tab-content">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Vuelo</th>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Fecha Salida</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allReservationsBody">
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">Cargando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="by-user" class="tab-content">
+                    <div class="search-box">
+                        <div class="form-group">
+                            <label for="searchUserId">ID del Usuario</label>
+                            <input type="number" id="searchUserId" placeholder="Ingrese el ID del usuario">
+                        </div>
+                        <button id="btnSearchByUser" class="btn btn-primary">Buscar</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vuelo</th>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Fecha Salida</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userReservationsBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Ingrese un ID de usuario para buscar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="../js/config.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/api/users.js"></script>
+        <script src="../js/api/reservations.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/pages/gestor/reservas.js"></script>
+    </body>
+</html>
