@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btnSearchByUser').addEventListener('click', handleSearchByUser);
 });
 // Cambiar tab
-const switchTab = (tabName) => {
+const switchTab = async (tabName) => {
     // Ocultar todos los contenidos
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
@@ -38,9 +38,11 @@ const switchTab = (tabName) => {
     document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
     // Cargar datos según el tab
     if (tabName === 'my-reservations') {
-        loadMyReservations();
-    } else if (tabName === 'all-reservations') {
-        loadAllReservations();
+        await loadMyReservations();
+    } else if (tabName === 'by-user') {
+        // Limpiar la búsqueda anterior
+        document.getElementById('searchUserId').value = '';
+        document.getElementById('userReservationsBody').innerHTML = '<tr><td colspan="7" style="text-align: center;">Ingrese un ID de usuario para buscar</td></tr>';
     }
 };
 // Cargar mis reservas
@@ -75,42 +77,9 @@ const loadMyReservations = async () => {
         toggleLoading(false);
     }
 };
-// Cargar todas las reservas
-const loadAllReservations = async () => {
-    try {
-        toggleLoading(true);
-        const response = await reservationsAPI.getAll();
-        const tbody = document.getElementById('allReservationsBody');
-        if (response.status === 'success' && response.data && response.data.length > 0) {
-            tbody.innerHTML = response.data.map(reservation => `
-                <tr>
-                    <td>${reservation.id}</td>
-                    <td>Usuario #${reservation.user_id}</td>
-                    <td>#${reservation.flight_id}</td>
-                    <td>${reservation.flight ? reservation.flight.origin : 'N/A'}</td>
-                    <td>${reservation.flight ? reservation.flight.destination : 'N/A'}</td>
-                    <td>${reservation.flight ? formatDate(reservation.flight.departure) : 'N/A'}</td>
-                    <td><span class="badge badge-${reservation.status}">${reservation.status}</span></td>
-                    <td class="table-actions">
-                        ${reservation.status === 'activa' ? 
-                            `<button class="btn btn-warning btn-sm" onclick="cancelReservation(${reservation.id})">Cancelar</button>` : 
-                            '<span style="color: #95a5a6;">Cancelada</span>'}
-                    </td>
-                </tr>
-            `).join('');
-        } else {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No hay reservas</td></tr>';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showAlert('Error al cargar reservas', 'error');
-    } finally {
-        toggleLoading(false);
-    }
-};
 // Buscar reservas por usuario
 const handleSearchByUser = async () => {
-    const userId = document.getElementById('searchUserId').value;
+    const userId = document.getElementById('searchUserId').value.trim();
     if (!userId) {
         showAlert('Ingrese un ID de usuario', 'error');
         return;
@@ -141,6 +110,7 @@ const handleSearchByUser = async () => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al buscar reservas', 'error');
+        document.getElementById('userReservationsBody').innerHTML = '<tr><td colspan="7" style="text-align: center;">Error al buscar reservas</td></tr>';
     } finally {
         toggleLoading(false);
     }
@@ -157,10 +127,12 @@ const cancelReservation = async (id) => {
             const activeTab = document.querySelector('.tab-content.active').id;
             if (activeTab === 'my-reservations') {
                 await loadMyReservations();
-            } else if (activeTab === 'all-reservations') {
-                await loadAllReservations();
-            } else {
-                await handleSearchByUser();
+            } else if (activeTab === 'by-user') {
+                // Recargar la búsqueda actual
+                const userId = document.getElementById('searchUserId').value.trim();
+                if (userId) {
+                    await handleSearchByUser();
+                }
             }
         } else {
             showAlert(response.message, 'error');
