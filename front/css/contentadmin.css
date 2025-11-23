@@ -125,7 +125,7 @@ body {
 
 .header2 h1 {
     color: #00114F;
-    font-size: 35px;
+    font-size: 28px;
     font-family: "Stack Sans Text", sans-serif;
 }
 
@@ -147,11 +147,67 @@ body {
     
 }
 
+.filters-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.filter label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-family: "Varela Round", sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.filter input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+}
+
+.filter input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+}
+
+.filters-container button {
+    padding: 14px 20px;
+    margin-top: 0;
+    background: #2828A6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filters-container button:hover {
+    background: #4AE8FF;
+    color: black;
+}
+
 .table-container {
     background: white;
     border-radius: 8px;
     overflow: hidden;
     margin-right: 30px;
+    margin-bottom: 20px;
 }
 
 table {
