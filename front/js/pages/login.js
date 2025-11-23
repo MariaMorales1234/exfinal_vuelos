@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isAuthenticated()) {
         redirectByRole();
     }
-    // Obtener elementos del DOM
+    // Obtener elementos del Dom
     const loginForm = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');

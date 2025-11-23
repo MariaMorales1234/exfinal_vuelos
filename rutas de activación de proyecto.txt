@@ -6,4 +6,3 @@ front: php -S 127.0.0.1:8002
 Datos de prueba
 Administrador: admin@system.com / admin123
 Gestor: gestor@system.com / gestor123
-#5EB0FF

@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
         <p>${user.email}</p>
-        <p><span class="badge">${user.role}</span></p>
     `;
     // Evento logout
     document.getElementById('logoutBtn').addEventListener('click', async () => {
