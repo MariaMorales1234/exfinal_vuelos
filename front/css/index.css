@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../image/fondo_login.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h1 {
+    font-family: "Stack Sans Text", sans-serif;
+    color: #0064C9;
+    margin-bottom: 10px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.login-box h2 {
+    font-family: "Stack Sans Text", sans-serif;
+    color: #004287;
+    margin-bottom: 30px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-family: "Varela Round", sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+}
+
+.group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px 20px;
+    background: #2828A6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Mensajes */
+.error-message {
+    color: #e74c3c;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.test-credentials {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.test-credentials p {
+    margin: 5px 0;
+}
