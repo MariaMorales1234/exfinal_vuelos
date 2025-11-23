@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
-    document.getElementById('btnNewFlight').addEventListener('click', openNewFlightModal);
-    document.getElementById('btnCancelFlight').addEventListener('click', closeModal);
-    document.querySelector('.close').addEventListener('click', closeModal);
+    document.getElementById('btnNewFlight').addEventListener('click', openNewFlightForm);
+    document.getElementById('btnCancelFlight').addEventListener('click', closeForm);
+    document.querySelector('.close').addEventListener('click', closeForm);
     document.getElementById('flightForm').addEventListener('submit', handleSubmitFlight);
     document.getElementById('btnSearch').addEventListener('click', handleSearch);
     document.getElementById('btnClearFilters').addEventListener('click', clearFilters);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Cargar naves para el selector
 const loadNavesForSelect = async () => {
     try {
-        const response = await navesAPI.getAll();
+        const response = await naves.getAll();
         if (response.status === 'success' && response.data) {
             navesData = response.data;
             const select = document.getElementById('flightNave');
@@ -43,8 +43,7 @@ const loadNavesForSelect = async () => {
 // Cargar vuelos
 const loadFlights = async () => {
     try {
-        toggleLoading(true);
-        const response = await flightsAPI.getAll();
+        const response = await flights.getAll();
         const tbody = document.getElementById('flightsTableBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
             tbody.innerHTML = response.data.map(flight => `
@@ -57,8 +56,8 @@ const loadFlights = async () => {
                     <td>${formatDate(flight.arrival)}</td>
                     <td>${formatPrice(flight.price)}</td>
                     <td class="table-actions">
-                        <button class="btn btn-warning btn-sm" onclick="editFlight(${flight.id})">Editar</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteFlight(${flight.id})">Eliminar</button>
+                        <button class="btn-sm" onclick="editFlight(${flight.id})">Editar</button>
+                        <button class="btn-sm" onclick="deleteFlight(${flight.id})">Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -68,14 +67,11 @@ const loadFlights = async () => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cargar vuelos', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Buscar vuelos
 const handleSearch = async () => {
     try {
-        toggleLoading(true);
         const params = {};
         const origin = document.getElementById('filterOrigin').value.trim();
         const destination = document.getElementById('filterDestination').value.trim();
@@ -87,7 +83,7 @@ const handleSearch = async () => {
             await loadFlights();
             return;
         }
-        const response = await flightsAPI.search(params);
+        const response = await flights.search(params);
         const tbody = document.getElementById('flightsTableBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
             tbody.innerHTML = response.data.map(flight => `
@@ -100,8 +96,8 @@ const handleSearch = async () => {
                     <td>${formatDate(flight.arrival)}</td>
                     <td>${formatPrice(flight.price)}</td>
                     <td class="table-actions">
-                        <button class="btn btn-warning btn-sm" onclick="editFlight(${flight.id})">Editar</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteFlight(${flight.id})">Eliminar</button>
+                        <button class="btn-sm" onclick="editFlight(${flight.id})">Editar</button>
+                        <button class="btn-sm" onclick="deleteFlight(${flight.id})">Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -111,8 +107,6 @@ const handleSearch = async () => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al buscar vuelos', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Limpiar filtros
@@ -123,21 +117,20 @@ const clearFilters = () => {
     loadFlights();
 };
 // Abrir modal nuevo vuelo
-const openNewFlightModal = () => {
+const openNewFlightForm = () => {
     editingFlightId = null;
-    document.getElementById('modalTitle').textContent = 'Nuevo Vuelo';
+    document.getElementById('formTitle').textContent = 'Nuevo Vuelo';
     document.getElementById('flightForm').reset();
     document.getElementById('flightId').value = '';
-    document.getElementById('flightModal').style.display = 'flex';
+    document.getElementById('flightformcreate').style.display = 'flex';
 };
 // Editar vuelo
 const editFlight = async (id) => {
     try {
-        toggleLoading(true);
-        const response = await flightsAPI.getById(id);
+        const response = await flights.getById(id);
         if (response.status === 'success' && response.data) {
             editingFlightId = id;
-            document.getElementById('modalTitle').textContent = 'Editar Vuelo';
+            document.getElementById('formTitle').textContent = 'Editar Vuelo';
             document.getElementById('flightId').value = response.data.id;
             document.getElementById('flightNave').value = response.data.nave_id;
             document.getElementById('flightOrigin').value = response.data.origin;
@@ -148,21 +141,18 @@ const editFlight = async (id) => {
             document.getElementById('flightDeparture').value = formatDateTimeLocal(departure);
             document.getElementById('flightArrival').value = formatDateTimeLocal(arrival);
             document.getElementById('flightPrice').value = response.data.price;
-            document.getElementById('flightModal').style.display = 'flex';
+            document.getElementById('flightformcreate').style.display = 'flex';
         }
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cargar vuelo', 'error');
-    } finally {
-        toggleLoading(false);
-    }
+    } 
 };
 // Eliminar vuelo
 const deleteFlight = async (id) => {
     if (!confirmAction('¿Eliminar este vuelo?')) return;
     try {
-        toggleLoading(true);
-        const response = await flightsAPI.delete(id);
+        const response = await flights.delete(id);
         if (response.status === 'success') {
             showAlert('Vuelo eliminado', 'success');
             await loadFlights();
@@ -172,8 +162,6 @@ const deleteFlight = async (id) => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al eliminar vuelo', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Manejar submit del formulario
@@ -188,18 +176,15 @@ const handleSubmitFlight = async (e) => {
         price: parseFloat(document.getElementById('flightPrice').value)
     };
     try {
-        toggleLoading(true);
         let response;
-
         if (editingFlightId) {
-            response = await flightsAPI.update(editingFlightId, flightData);
+            response = await flights.update(editingFlightId, flightData);
         } else {
-            response = await flightsAPI.create(flightData);
+            response = await flights.create(flightData);
         }
-
         if (response.status === 'success') {
             showAlert(editingFlightId ? 'Vuelo actualizado' : 'Vuelo creado', 'success');
-            closeModal();
+            closeForm();
             await loadFlights();
         } else {
             showAlert(response.message, 'error');
@@ -207,9 +192,7 @@ const handleSubmitFlight = async (e) => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al guardar vuelo', 'error');
-    } finally {
-        toggleLoading(false);
-    }
+    } 
 };
 // Formatear fecha para input datetime-local
 const formatDateTimeLocal = (date) => {
@@ -221,8 +204,8 @@ const formatDateTimeLocal = (date) => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 // Cerrar modal
-const closeModal = () => {
-    document.getElementById('flightModal').style.display = 'none';
+const closeForm = () => {
+    document.getElementById('flightformcreate').style.display = 'none';
     document.getElementById('flightForm').reset();
     editingFlightId = null;
 };

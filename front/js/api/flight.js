@@ -1,4 +1,4 @@
-const flightsAPI = {
+const flights = {
     // Listar vuelos
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/flights`, {

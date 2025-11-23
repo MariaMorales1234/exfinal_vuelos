@@ -17,16 +17,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
-    document.getElementById('btnNewNave').addEventListener('click', openNewNaveModal);
-    document.getElementById('btnCancelNave').addEventListener('click', closeModal);
-    document.querySelector('.close').addEventListener('click', closeModal);
+    document.getElementById('btnNewNave').addEventListener('click', openNewNaveForm);
+    document.getElementById('btnCancelNave').addEventListener('click', closeForm);
+    document.querySelector('.close').addEventListener('click', closeForm);
     document.getElementById('naveForm').addEventListener('submit', handleSubmitNave);
 });
 // Cargar naves
 const loadNaves = async () => {
     try {
-        toggleLoading(true);
-        const response = await navesAPI.getAll();
+        const response = await naves.getAll();
         const tbody = document.getElementById('navesTableBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
             tbody.innerHTML = response.data.map(nave => `
@@ -36,8 +35,8 @@ const loadNaves = async () => {
                     <td>${nave.model}</td>
                     <td>${nave.capacity}</td>
                     <td class="table-actions">
-                        <button class="btn btn-warning btn-sm" onclick="editNave(${nave.id})">Editar</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteNave(${nave.id})">Eliminar</button>
+                        <button class="btn-sm" onclick="editNave(${nave.id})">Editar</button>
+                        <button class="btn-sm" onclick="deleteNave(${nave.id})">Eliminar</button>
                     </td>
                 </tr>
             `).join('');
@@ -47,45 +46,39 @@ const loadNaves = async () => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cargar naves', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Abrir modal nueva nave
-const openNewNaveModal = () => {
+const openNewNaveForm = () => {
     editingNaveId = null;
-    document.getElementById('modalTitle').textContent = 'Nueva Nave';
+    document.getElementById('formTitle').textContent = 'Nueva Nave';
     document.getElementById('naveForm').reset();
     document.getElementById('naveId').value = '';
-    document.getElementById('naveModal').style.display = 'flex';
+    document.getElementById('naveformcreate').style.display = 'flex';
 };
 // Editar nave
 const editNave = async (id) => {
     try {
-        toggleLoading(true);
-        const response = await navesAPI.getById(id);
+        const response = await naves.getById(id);
         if (response.status === 'success' && response.data) {
             editingNaveId = id;
-            document.getElementById('modalTitle').textContent = 'Editar Nave';
+            document.getElementById('formTitle').textContent = 'Editar Nave';
             document.getElementById('naveId').value = response.data.id;
             document.getElementById('naveName').value = response.data.name;
             document.getElementById('naveModel').value = response.data.model;
             document.getElementById('naveCapacity').value = response.data.capacity;
-            document.getElementById('naveModal').style.display = 'flex';
+            document.getElementById('naveformcreate').style.display = 'flex';
         }
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cargar nave', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Eliminar nave
 const deleteNave = async (id) => {
     if (!confirmAction('¿Eliminar esta nave?')) return;
     try {
-        toggleLoading(true);
-        const response = await navesAPI.delete(id);
+        const response = await naves.delete(id);
         if (response.status === 'success') {
             showAlert('Nave eliminada', 'success');
             await loadNaves();
@@ -95,8 +88,6 @@ const deleteNave = async (id) => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al eliminar nave', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Manejar submit del formulario
@@ -108,17 +99,15 @@ const handleSubmitNave = async (e) => {
         capacity: parseInt(document.getElementById('naveCapacity').value)
     };
     try {
-        toggleLoading(true);
         let response;
-
         if (editingNaveId) {
-            response = await navesAPI.update(editingNaveId, naveData);
+            response = await naves.update(editingNaveId, naveData);
         } else {
-            response = await navesAPI.create(naveData);
+            response = await naves.create(naveData);
         }
         if (response.status === 'success') {
             showAlert(editingNaveId ? 'Nave actualizada' : 'Nave creada', 'success');
-            closeModal();
+            closeForm();
             await loadNaves();
         } else {
             showAlert(response.message, 'error');
@@ -126,13 +115,11 @@ const handleSubmitNave = async (e) => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al guardar nave', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
 // Cerrar modal
-const closeModal = () => {
-    document.getElementById('naveModal').style.display = 'none';
+const closeForm = () => {
+    document.getElementById('naveformcreate').style.display = 'none';
     document.getElementById('naveForm').reset();
     editingNaveId = null;
 };

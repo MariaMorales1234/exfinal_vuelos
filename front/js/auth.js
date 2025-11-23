@@ -42,7 +42,7 @@ const validateSession = async () => {
         return false;
     }
     try {
-        const response = await usersAPI.validate();
+        const response = await users.validate();
         if (response.status !== 'success') {
             clearSession();
             window.location.href = '/index.html';
@@ -59,7 +59,7 @@ const validateSession = async () => {
 // Manejar login
 const handleLogin = async (email, password) => {
     try {
-        const response = await usersAPI.login(email, password);
+        const response = await users.login(email, password);
 
         if (response.status === 'success') {
             saveSession(response.data.token, response.data.user);
@@ -76,7 +76,7 @@ const handleLogin = async (email, password) => {
 // Manejar logout
 const handleLogout = async () => {
     try {
-        await usersAPI.logout();
+        await users.logout();
     } catch (error) {
         console.error('Error en logout:', error);
     } finally {

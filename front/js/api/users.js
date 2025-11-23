@@ -1,4 +1,4 @@
-const usersAPI = {
+const users = {
     // Login
     login: async (email, password) => {
         const response = await fetch(`${API_USERS}/auth/login`, {

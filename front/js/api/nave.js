@@ -1,4 +1,4 @@
-const navesAPI = {
+const naves = {
     // Listar naves
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/naves`, {

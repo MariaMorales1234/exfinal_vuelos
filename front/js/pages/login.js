@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isAuthenticated()) {
         redirectByRole();
     }
-    // Obtener elementos del Dom
     const loginForm = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -20,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             errorDiv.textContent = 'Por favor complete todos los campos';
             return;
         }
-        // Mostrar loading
-        toggleLoading(true);
         try {
             const result = await handleLogin(email, password);
             if (!result.success) {
@@ -30,8 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             errorDiv.textContent = 'Error de conexión con el servidor';
             console.error('Error:', error);
-        } finally {
-            toggleLoading(false);
         }
     });
 });

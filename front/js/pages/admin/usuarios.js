@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Cargar usuarios
 const loadUsers = async () => {
     try {
-        const response = await usersAPI.getAll();
+        const response = await users.getAll();
         const tbody = document.getElementById('usersTableBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
             tbody.innerHTML = response.data.map(user => `
@@ -59,7 +59,7 @@ const openNewUserForm = () => {
 // Editar usuario
 const editUser = async (id) => {
     try {
-        const response = await usersAPI.getById(id);
+        const response = await users.getById(id);
         if (response.status === 'success' && response.data) {
             editingUserId = id;
             document.getElementById('formTitle').textContent = 'Editar Usuario';
@@ -80,7 +80,7 @@ const editUser = async (id) => {
 const deleteUser = async (id) => {
     if (!confirmAction('¿Eliminar este usuario?')) return;
     try {
-        const response = await usersAPI.delete(id);
+        const response = await users.delete(id);
         if (response.status === 'success') {
             showAlert('Usuario eliminado', 'success');
             await loadUsers();
@@ -107,13 +107,13 @@ const handleSubmitUser = async (e) => {
     try {
         let response;
         if (editingUserId) {
-            response = await usersAPI.update(editingUserId, userData);
+            response = await users.update(editingUserId, userData);
         } else {
             if (!password) {
                 showAlert('La contraseña es requerida', 'error');
                 return;
             }
-            response = await usersAPI.create(userData);
+            response = await users.create(userData);
         }
         if (response.status === 'success') {
             showAlert(editingUserId ? 'Usuario actualizado' : 'Usuario creado', 'success');
