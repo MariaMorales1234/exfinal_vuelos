@@ -267,6 +267,42 @@ table tbody tr:hover {
     background-color: white;
 }
 
+select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+}
+
+.group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.form-actions button {
+    padding: 14px 20px;
+    background: #2828A6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.form-actions button:hover {
+    transform: translateY(-2px);
+}
+
 .close {
     position: absolute;
     right: 20px;
