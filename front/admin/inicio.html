@@ -7,41 +7,20 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <div class="dashboard">
+        <div class="start">
             <aside class="sidebar">
                 <h2>Administrador</h2>
                 <div class="user-info" id="userInfo"></div>
                 <nav>
-                    <a href="dashboard.html">Dashboard</a>
+                    <a href="inicio.html">Inicio</a>
                     <a href="usuarios.html">Usuarios</a>
                     <a href="naves.html">Naves</a>
                     <a href="vuelos.html">Vuelos</a>
                 </nav>
-                <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+                <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
             </aside>
             <main class="main-content">
-                <div class="header">
-                    <h1>Dashboard</h1>
-                </div>
-                <div class="dashboard-stats">
-                    <div class="stat-card">
-                        <h3>Total Usuarios</h3>
-                        <p class="stat-number" id="totalUsers">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Total Naves</h3>
-                        <p class="stat-number" id="totalNaves">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Total Vuelos</h3>
-                        <p class="stat-number" id="totalFlights">0</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Total Reservas</h3>
-                        <p class="stat-number" id="totalReservations">0</p>
-                    </div>
-                </div>
-                <div class="dashboard-info">
+                <div class="start-info">
                     <h2>Bienvenido al Sistema de Gestión de Vuelos</h2>
                     <p>Utiliza el menú lateral para navegar entre las diferentes secciones.</p>
                 </div>
@@ -54,6 +33,6 @@
         <script src="../js/api/flight.js"></script>
         <script src="../js/api/reservation.js"></script>
         <script src="../js/auth.js"></script>
-        <script src="../js/pages/admin/dashboard.js"></script>
+        <script src="../js/pages/admin/inicio.js"></script>
     </body>
 </html>

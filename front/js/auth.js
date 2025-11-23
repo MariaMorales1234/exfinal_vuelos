@@ -29,9 +29,8 @@ const redirectByRole = () => {
         window.location.href = '/index.html';
         return;
     }
-
     if (user.role === 'administrador') {
-        window.location.href = '/admin/dashboard.html';
+        window.location.href = '/admin/inicio.html';
     } else if (user.role === 'gestor') {
         window.location.href = '/gestor/dashboard.html';
     }
@@ -88,7 +87,6 @@ const handleLogout = async () => {
 // Proteger páginas según rol
 const requireRole = (allowedRoles) => {
     const user = getCurrentUser();
-    
     if (!user || !allowedRoles.includes(user.role)) {
         alert('No tienes permisos para acceder a esta página');
         redirectByRole();
