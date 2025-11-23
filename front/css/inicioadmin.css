@@ -125,7 +125,6 @@ body {
     margin-bottom: 15px;
     font-family: "Stack Sans Text", sans-serif;
     font-size: 35px;
-    text-align: center;
 }
 
 .start-info p {
@@ -133,7 +132,6 @@ body {
     color: #2c3e50;
     font-family: "Varela Round", sans-serif;
     font-size: 17px;
-    text-align: center;
 }
 
 .foot {

@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #A8D4FF;
+}
+
+.header{
+    width: 100%;
+    background: #5EB0FF;
+}
+
+.header h1 {
+    font-family: "Stack Sans Text", sans-serif;
+    color: #00114F;
+    padding: 20px;
+    font-size: 35px;
+    text-align: center;
+}
+
+.start {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color:#EBF5FF;
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: 25px;
+    text-align: center;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-info {
+    padding: 10px;
+    margin-bottom: 17px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    color: #2c3e50;
+    font-family: "Varela Round", sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btn-logout {
+    background-color: #002AD9;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+    font-family: "Varela Round", sans-serif;
+    font-size: 14px;
+}
+
+.btn-logout:hover {
+    background-color: #FFBF00;
+    color: black;
+}
+
+.main-content {
+    width: 100%;
+}
+
+.main-content nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px 0;
+    margin-top: 8px;
+}
+
+.main-content nav a {
+    background-color: #002AD9;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-family: "Varela Round", sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.main-content nav a:hover {
+    background-color: #FFBF00;
+    color: black;
+}
+
+.header2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.header2 h1 {
+    color: #00114F;
+    font-size: 35px;
+    font-family: "Stack Sans Text", sans-serif;
+}
+
+.btn-success {
+    background-color: #002AD9;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: "Varela Round", sans-serif;
+    font-size: 15px;
+}
+
+.btn-success:hover {
+    background-color: #4AE8FF;
+    color: black;
+    
+}
+
+.table-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead {
+    background-color: #3498db;
+    color: white;
+}
+
+table th{
+    padding: 12px;
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+table td{
+    padding: 12px;
+    font-family: "Varela Round", sans-serif;
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-sm {
+    background: #f8f9fa;
+    color: black;
+    border-radius: 10px;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "Varela Round", sans-serif;
+    font-size: 15px;
+}
+
+.btn-sm:hover {
+    color: #002AD9;
+}
+
+.form {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.form-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.form-content h2 {
+    font-family: "Stack Sans Text", sans-serif;
+    color: #0064C9;
+    margin-bottom: 10px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-family: "Varela Round", sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+}
+
+.group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.foot {
+    width: 100%;
+    height: 40px;
+    background: #5EB0FF
+}
