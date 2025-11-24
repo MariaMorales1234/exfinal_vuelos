@@ -21,7 +21,6 @@
                     ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(401);
             }
-            // Remover "Bearer " si existe
             $token = str_replace('Bearer ', '', $token);
             $user = User::where('token', $token)->first();
             if (empty($user)) {

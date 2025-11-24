@@ -5,7 +5,6 @@
     use Slim\Routing\RouteCollectorProxy;
 
     return function ($app) {
-        // Rutas de naves (solo administrador)
         $app->group('/naves', function (RouteCollectorProxy $group) {
             $group->get('', function ($request, $response) {
                 $res = new NaveRepository();

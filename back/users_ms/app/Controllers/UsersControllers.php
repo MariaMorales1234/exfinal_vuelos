@@ -28,7 +28,6 @@
             if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
                 throw new Exception("Nombre, email y contraseña son requeridos", 400);
             }
-            // Verificar si el email ya existe
             $existEmail = User::where('email', $data['email'])->first();
             if (!empty($existEmail)) {
                 throw new Exception("El email ya está registrado", 409);

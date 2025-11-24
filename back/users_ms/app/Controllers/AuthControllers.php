@@ -15,10 +15,8 @@
             }
             // Generar token aleatorio 
             $token = bin2hex(random_bytes(4));
-            // Actualizar token en Base de datos
             $user->token = $token;
             $user->save();
-            // Retornar como string JSON
             return json_encode([
                 'token' => $token,
                 'user' => [

@@ -1,5 +1,4 @@
 const reservations = {
-    // Listar reservas
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/reservations`, {
             method: 'GET',
@@ -10,7 +9,6 @@ const reservations = {
         });
         return await response.json();
     },
-    // Obtener reserva por ID
     getById: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/reservations/${id}`, {
             method: 'GET',
@@ -21,7 +19,6 @@ const reservations = {
         });
         return await response.json();
     },
-    // Obtener reservas por usuario
     getByUser: async (userId) => {
         const response = await fetch(`${API_FLIGHTS}/reservations/user/${userId}`, {
             method: 'GET',
@@ -32,7 +29,6 @@ const reservations = {
         });
         return await response.json();
     },
-    // Crear reserva
     create: async (reservationData) => {
         const response = await fetch(`${API_FLIGHTS}/reservations`, {
             method: 'POST',
@@ -44,7 +40,6 @@ const reservations = {
         });
         return await response.json();
     },
-    // Cancelar reserva
     cancel: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/reservations/${id}/cancel`, {
             method: 'PATCH',
@@ -55,7 +50,6 @@ const reservations = {
         });
         return await response.json();
     },
-    // Eliminar reserva
     delete: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/reservations/${id}`, {
             method: 'DELETE',

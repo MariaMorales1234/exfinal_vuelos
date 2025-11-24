@@ -48,7 +48,6 @@
             || empty($data['departure']) || empty($data['arrival']) || empty($data['price'])) {
                 throw new Exception("Nave, origen, destino, salida, llegada y precio son requeridos", 400);
             }
-            // Verificar que la nave existe
             $nave = Nave::find($data['nave_id']);
             if (empty($nave)) {
                 throw new Exception("La nave especificada no existe", 404);

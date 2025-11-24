@@ -42,7 +42,6 @@
             if (empty($data['user_id']) || empty($data['flight_id'])) {
                 throw new Exception("Usuario y vuelo son requeridos", 400);
             }
-            // Verificar que el vuelo existe
             $flight = Flight::find($data['flight_id']);
             if (empty($flight)) {
                 throw new Exception("El vuelo especificado no existe", 404);
@@ -53,7 +52,6 @@
             $reservation->status = 'activa';
             $reservation->reserved_at = date('Y-m-d H:i:s');
             $reservation->save();
-            // Cargar la relación para retornar datos completos
             $reservation->load('flight.nave');
             return $reservation->toJson();
         }

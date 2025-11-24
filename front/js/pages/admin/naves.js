@@ -1,19 +1,15 @@
 let editingNaveId = null;
 document.addEventListener('DOMContentLoaded', async () => {
-    // Validar sesión y rol
     const isValid = await validateSession();
     if (!isValid) return;
     requireRole(['administrador']);
-    // Mostrar info usuario
     const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
         <p>${user.email}</p>
         <p><span class="badge">${user.role}</span></p>
     `;
-    // Cargar naves
     await loadNaves();
-    // Eventos
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
@@ -22,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.close').addEventListener('click', closeForm);
     document.getElementById('naveForm').addEventListener('submit', handleSubmitNave);
 });
-// Cargar naves
+
 const loadNaves = async () => {
     try {
         const response = await naves.getAll();
@@ -48,7 +44,7 @@ const loadNaves = async () => {
         showAlert('Error al cargar naves', 'error');
     }
 };
-// Abrir modal nueva nave
+
 const openNewNaveForm = () => {
     editingNaveId = null;
     document.getElementById('formTitle').textContent = 'Nueva Nave';
@@ -56,7 +52,7 @@ const openNewNaveForm = () => {
     document.getElementById('naveId').value = '';
     document.getElementById('naveformcreate').style.display = 'flex';
 };
-// Editar nave
+
 const editNave = async (id) => {
     try {
         const response = await naves.getById(id);
@@ -74,7 +70,7 @@ const editNave = async (id) => {
         showAlert('Error al cargar nave', 'error');
     }
 };
-// Eliminar nave
+
 const deleteNave = async (id) => {
     if (!confirmAction('¿Eliminar esta nave?')) return;
     try {
@@ -90,7 +86,7 @@ const deleteNave = async (id) => {
         showAlert('Error al eliminar nave', 'error');
     }
 };
-// Manejar submit del formulario
+
 const handleSubmitNave = async (e) => {
     e.preventDefault();
     const naveData = {
@@ -117,7 +113,7 @@ const handleSubmitNave = async (e) => {
         showAlert('Error al guardar nave', 'error');
     }
 };
-// Cerrar modal
+
 const closeForm = () => {
     document.getElementById('naveformcreate').style.display = 'none';
     document.getElementById('naveForm').reset();

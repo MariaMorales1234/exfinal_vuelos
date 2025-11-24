@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar si ya está logueado
     if (isAuthenticated()) {
         redirectByRole();
     }
@@ -7,14 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const errorDiv = document.getElementById('errorMessage');
-    // Manejar submit del formulario
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
-        // Limpiar mensaje de error
         errorDiv.textContent = '';
-        // Validar campos
         if (!email || !password) {
             errorDiv.textContent = 'Por favor complete todos los campos';
             return;

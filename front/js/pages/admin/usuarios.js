@@ -1,18 +1,14 @@
 let editingUserId = null;
 document.addEventListener('DOMContentLoaded', async () => {
-    // Validar sesión y rol
     const isValid = await validateSession();
     if (!isValid) return;
     requireRole(['administrador']);
-    // Mostrar info usuario
     const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
         <p>${user.email}</p>
     `;
-    // Cargar usuarios
     await loadUsers();
-    // Eventos
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
@@ -21,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.close').addEventListener('click', closeForm);
     document.getElementById('userForm').addEventListener('submit', handleSubmitUser);
 });
-// Cargar usuarios
+
 const loadUsers = async () => {
     try {
         const response = await users.getAll();
@@ -47,7 +43,7 @@ const loadUsers = async () => {
         showAlert('Error al cargar usuarios', 'error');
     }
 };
-// Abrir modal nuevo usuario
+
 const openNewUserForm = () => {
     editingUserId = null;
     document.getElementById('formTitle').textContent = 'Nuevo Usuario';
@@ -56,7 +52,7 @@ const openNewUserForm = () => {
     document.getElementById('userPassword').required = true;
     document.getElementById('userformcreate').style.display = 'flex';
 };
-// Editar usuario
+
 const editUser = async (id) => {
     try {
         const response = await users.getById(id);
@@ -76,7 +72,7 @@ const editUser = async (id) => {
         showAlert('Error al cargar usuario', 'error');
     }
 };
-// Eliminar usuario
+
 const deleteUser = async (id) => {
     if (!confirmAction('¿Eliminar este usuario?')) return;
     try {
@@ -92,7 +88,7 @@ const deleteUser = async (id) => {
         showAlert('Error al eliminar usuario', 'error');
     }
 };
-// Manejar submit del formulario
+
 const handleSubmitUser = async (e) => {
     e.preventDefault();
     const userData = {
@@ -127,7 +123,7 @@ const handleSubmitUser = async (e) => {
         showAlert('Error al guardar usuario', 'error');
     }
 };
-// Cerrar modal
+
 const closeForm = () => {
     document.getElementById('userformcreate').style.display = 'none';
     document.getElementById('userForm').reset();

@@ -1,20 +1,15 @@
 let flightsData = [];
 document.addEventListener('DOMContentLoaded', async () => {
-    // Validar sesión y rol
     const isValid = await validateSession();
     if (!isValid) return;
     requireRole(['gestor']);
-    // Obtener usuario actual
     const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
         <p>${user.email}</p>
     `;
-    // Cargar vuelos para el selector
     await loadFlightsForSelect();
-    // Cargar todas las reservas
     await loadAllReservations();
-    // Eventos
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
@@ -24,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('reservationForm').addEventListener('submit', handleSubmitReservation);
     document.getElementById('btnSearchByUser').addEventListener('click', handleSearchByUser);
 });
-// Cargar vuelos para el selector
+
 const loadFlightsForSelect = async () => {
     try {
         const response = await flights.getAll();
@@ -42,7 +37,7 @@ const loadFlightsForSelect = async () => {
         console.error('Error:', error);
     }
 };
-// Cargar TODAS las reservas (Tabla 1)
+
 const loadAllReservations = async () => {
     try {
         const response = await reservations.getAll();
@@ -57,7 +52,7 @@ const loadAllReservations = async () => {
         showAlert('Error al cargar reservas', 'error');
     }
 };
-// Buscar reservas por usuario (Tabla 2)
+
 const handleSearchByUser = async () => {
     const userId = document.getElementById('searchUserId').value.trim();
     if (!userId) {
@@ -79,7 +74,7 @@ const handleSearchByUser = async () => {
             '<tr><td colspan="8" style="text-align: center;">Error al buscar reservas</td></tr>';
     }
 };
-// Crear fila de reserva (reutilizable para ambas tablas)
+
 const createReservationRow = (reservation) => {
     return `
         <tr>
@@ -99,14 +94,14 @@ const createReservationRow = (reservation) => {
         </tr>
     `;
 };
-// Abrir modal nueva reserva
+
 const openNewReservationForm = () => {
     document.getElementById('formTitle').textContent = 'Nueva Reserva';
     document.getElementById('reservationForm').reset();
     document.getElementById('reservationId').value = '';
     document.getElementById('reservationformcreate').style.display = 'flex';
 };
-// Cancelar reserva
+
 const cancelReservation = async (id) => {
     if (!confirmAction('¿Cancelar esta reserva?')) return;
     try {
@@ -114,7 +109,6 @@ const cancelReservation = async (id) => {
         if (response.status === 'success') {
             showAlert('Reserva cancelada exitosamente', 'success');
             await loadAllReservations();
-            // Si hay búsqueda activa, recargarla también
             const searchUserId = document.getElementById('searchUserId').value.trim();
             if (searchUserId) {
                 await handleSearchByUser();
@@ -127,7 +121,7 @@ const cancelReservation = async (id) => {
         showAlert('Error al cancelar reserva', 'error');
     }
 };
-// Eliminar reserva
+
 const deleteReservation = async (id) => {
     if (!confirmAction('¿Eliminar esta reserva permanentemente?')) return;
     try {
@@ -148,7 +142,7 @@ const deleteReservation = async (id) => {
         showAlert('Error al eliminar reserva', 'error');
     }
 };
-// Manejar submit del formulario
+
 const handleSubmitReservation = async (e) => {
     e.preventDefault();
     const reservationData = {
@@ -174,7 +168,7 @@ const handleSubmitReservation = async (e) => {
         showAlert('Error al crear reserva', 'error');
     }
 };
-// Cerrar modal
+
 const closeForm = () => {
     document.getElementById('reservationformcreate').style.display = 'none';
     document.getElementById('reservationForm').reset();

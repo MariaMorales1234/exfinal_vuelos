@@ -1,5 +1,4 @@
 const naves = {
-    // Listar naves
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/naves`, {
             method: 'GET',
@@ -10,7 +9,6 @@ const naves = {
         });
         return await response.json();
     },
-    // Obtener nave por ID
     getById: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/naves/${id}`, {
             method: 'GET',
@@ -21,7 +19,6 @@ const naves = {
         });
         return await response.json();
     },
-    // Crear nave
     create: async (naveData) => {
         const response = await fetch(`${API_FLIGHTS}/naves`, {
             method: 'POST',
@@ -33,7 +30,6 @@ const naves = {
         });
         return await response.json();
     },
-    // Actualizar nave
     update: async (id, naveData) => {
         const response = await fetch(`${API_FLIGHTS}/naves/${id}`, {
             method: 'PUT',
@@ -45,7 +41,6 @@ const naves = {
         });
         return await response.json();
     },
-    // Eliminar nave
     delete: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/naves/${id}`, {
             method: 'DELETE',

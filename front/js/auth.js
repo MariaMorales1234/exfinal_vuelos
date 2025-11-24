@@ -1,28 +1,27 @@
-// Guardar datos de sesión
 const saveSession = (token, user) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
 };
-// Obtener usuario actual
+
 const getCurrentUser = () => {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
 };
-// Limpiar sesión
+
 const clearSession = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 };
-// Verificar si está autenticado
+
 const isAuthenticated = () => {
     return localStorage.getItem('token') !== null;
 };
-// Verificar rol del usuario
+
 const hasRole = (role) => {
     const user = getCurrentUser();
     return user && user.role === role;
 };
-// Redirigir según rol
+
 const redirectByRole = () => {
     const user = getCurrentUser();
     if (!user) {
@@ -35,7 +34,7 @@ const redirectByRole = () => {
         window.location.href = '/gestor/inicio.html';
     }
 };
-// Validar sesión al cargar página
+
 const validateSession = async () => {
     if (!isAuthenticated()) {
         window.location.href = '/index.html';
@@ -56,7 +55,7 @@ const validateSession = async () => {
         return false;
     }
 };
-// Manejar login
+
 const handleLogin = async (email, password) => {
     try {
         const response = await users.login(email, password);
@@ -73,7 +72,7 @@ const handleLogin = async (email, password) => {
         return { success: false, message: 'Error de conexión' };
     }
 };
-// Manejar logout
+
 const handleLogout = async () => {
     try {
         await users.logout();
@@ -84,7 +83,7 @@ const handleLogout = async () => {
         window.location.href = '/index.html';
     }
 };
-// Proteger páginas según rol
+
 const requireRole = (allowedRoles) => {
     const user = getCurrentUser();
     if (!user || !allowedRoles.includes(user.role)) {

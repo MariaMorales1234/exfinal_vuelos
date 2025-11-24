@@ -7,7 +7,7 @@
     use Slim\Psr7\Response as SlimResponse;
 
     class Auth{
-        private $userServiceUrl = 'http://127.0.0.1:8000'; // URL del microservicio de usuarios
+        private $userServiceUrl = 'http://127.0.0.1:8000'; 
     
         public function __invoke(Request $request, RequestHandler $handler): Response{
             $token = $request->getHeaderLine('Authorization');
@@ -22,9 +22,7 @@
                     ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(401);
             }
-            // Remover "Bearer " si existe
             $token = str_replace('Bearer ', '', $token);
-            // Validar token con el microservicio de usuarios
             $ch = curl_init($this->userServiceUrl . '/auth/validate');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -45,7 +43,6 @@
                     ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(401);
             }
-            // Decodificar respuesta del microservicio de usuarios
             $userData = json_decode($result, true);
             if (!isset($userData['data']['user'])) {
                 $response = new SlimResponse();
@@ -58,7 +55,6 @@
                     ->withHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withStatus(401);
             }
-            // Agregar el usuario al request para uso posterior
             $request = $request->withAttribute('user', (object)$userData['data']['user']);
             return $handler->handle($request);
         }

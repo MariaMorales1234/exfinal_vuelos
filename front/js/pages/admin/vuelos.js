@@ -1,20 +1,16 @@
 let editingFlightId = null;
 let navesData = [];
 document.addEventListener('DOMContentLoaded', async () => {
-    // Validar sesión y rol
     const isValid = await validateSession();
     if (!isValid) return;
     requireRole(['administrador']);
-    // Mostrar info usuario
     const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
         <p>${user.email}</p>
         <p><span class="badge">${user.role}</span></p>
     `;
-    // Cargar naves para el selector
     await loadNavesForSelect();
-    // Cargar vuelos
     await loadFlights();
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
@@ -26,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btnSearch').addEventListener('click', handleSearch);
     document.getElementById('btnClearFilters').addEventListener('click', clearFilters);
 });
-// Cargar naves para el selector
+
 const loadNavesForSelect = async () => {
     try {
         const response = await naves.getAll();
@@ -40,7 +36,7 @@ const loadNavesForSelect = async () => {
         console.error('Error:', error);
     }
 };
-// Cargar vuelos
+
 const loadFlights = async () => {
     try {
         const response = await flights.getAll();
@@ -69,7 +65,7 @@ const loadFlights = async () => {
         showAlert('Error al cargar vuelos', 'error');
     }
 };
-// Buscar vuelos
+
 const handleSearch = async () => {
     try {
         const params = {};
@@ -109,14 +105,14 @@ const handleSearch = async () => {
         showAlert('Error al buscar vuelos', 'error');
     }
 };
-// Limpiar filtros
+
 const clearFilters = () => {
     document.getElementById('filterOrigin').value = '';
     document.getElementById('filterDestination').value = '';
     document.getElementById('filterDate').value = '';
     loadFlights();
 };
-// Abrir modal nuevo vuelo
+
 const openNewFlightForm = () => {
     editingFlightId = null;
     document.getElementById('formTitle').textContent = 'Nuevo Vuelo';
@@ -124,7 +120,7 @@ const openNewFlightForm = () => {
     document.getElementById('flightId').value = '';
     document.getElementById('flightformcreate').style.display = 'flex';
 };
-// Editar vuelo
+
 const editFlight = async (id) => {
     try {
         const response = await flights.getById(id);
@@ -148,7 +144,7 @@ const editFlight = async (id) => {
         showAlert('Error al cargar vuelo', 'error');
     } 
 };
-// Eliminar vuelo
+
 const deleteFlight = async (id) => {
     if (!confirmAction('¿Eliminar este vuelo?')) return;
     try {
@@ -164,7 +160,7 @@ const deleteFlight = async (id) => {
         showAlert('Error al eliminar vuelo', 'error');
     }
 };
-// Manejar submit del formulario
+
 const handleSubmitFlight = async (e) => {
     e.preventDefault();
     const flightData = {
@@ -194,7 +190,7 @@ const handleSubmitFlight = async (e) => {
         showAlert('Error al guardar vuelo', 'error');
     } 
 };
-// Formatear fecha para input datetime-local
+
 const formatDateTimeLocal = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -203,7 +199,7 @@ const formatDateTimeLocal = (date) => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
-// Cerrar modal
+
 const closeForm = () => {
     document.getElementById('flightformcreate').style.display = 'none';
     document.getElementById('flightForm').reset();

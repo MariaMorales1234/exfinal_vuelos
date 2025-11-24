@@ -1,5 +1,4 @@
 const flights = {
-    // Listar vuelos
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/flights`, {
             method: 'GET',
@@ -10,7 +9,6 @@ const flights = {
         });
         return await response.json();
     },
-    // Obtener vuelo por ID
     getById: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/flights/${id}`, {
             method: 'GET',
@@ -21,7 +19,6 @@ const flights = {
         });
         return await response.json();
     },
-    // Buscar vuelos
     search: async (params) => {
         const queryString = new URLSearchParams(params).toString();
         const response = await fetch(`${API_FLIGHTS}/flights/search?${queryString}`, {
@@ -33,7 +30,6 @@ const flights = {
         });
         return await response.json();
     },
-    // Crear vuelo
     create: async (flightData) => {
         const response = await fetch(`${API_FLIGHTS}/flights`, {
             method: 'POST',
@@ -45,7 +41,6 @@ const flights = {
         });
         return await response.json();
     },
-    // Actualizar vuelo
     update: async (id, flightData) => {
         const response = await fetch(`${API_FLIGHTS}/flights/${id}`, {
             method: 'PUT',
@@ -57,7 +52,6 @@ const flights = {
         });
         return await response.json();
     },
-    // Eliminar vuelo
     delete: async (id) => {
         const response = await fetch(`${API_FLIGHTS}/flights/${id}`, {
             method: 'DELETE',
