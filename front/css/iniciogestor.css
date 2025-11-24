@@ -7,12 +7,12 @@
 }
 
 body {
-    background: #A8D4FF;
+    background: #E3E6FF;
 }
 
 .header{
     width: 100%;
-    background: #5EB0FF;
+    background: #7E88E6;
 }
 
 .header h1 {
@@ -30,7 +30,7 @@ body {
 
 .sidebar {
     width: 260px;
-    background-color:#EBF5FF;
+    background-color:#C9CEFF;
     padding: 20px;
     margin: 20px;
     display: flex;
@@ -67,7 +67,7 @@ body {
 }
 
 .btn-logout {
-    background-color: #002AD9;
+    background-color: #1C23AD;
     color: white;
     border: none;
     border-radius: 15px;
@@ -77,8 +77,7 @@ body {
 }
 
 .btn-logout:hover {
-    background-color: #FFBF00;
-    color: black;
+    background-color: #7C00B8;
 }
 
 .main-content {
@@ -95,7 +94,7 @@ body {
 }
 
 .main-content nav a {
-    background-color: #002AD9;
+    background-color: #1C23AD;
     color: white;
     border: none;
     border-radius: 15px;
@@ -108,8 +107,7 @@ body {
 }
 
 .main-content nav a:hover {
-    background-color: #FFBF00;
-    color: black;
+    background-color: #7C00B8;
 }
 
 .start-info {
@@ -137,5 +135,5 @@ body {
 .foot {
     width: 100%;
     height: 40px;
-    background: #5EB0FF
+    background: #7E88E6;
 }

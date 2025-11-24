@@ -7,17 +7,17 @@
 }
 
 body {
-    background: #A8D4FF;
+    background: #E3E6FF;
 }
 
 .header{
     width: 100%;
-    background: #5EB0FF;
+    background: #7E88E6;
 }
 
 .header h1 {
     font-family: "Stack Sans Text", sans-serif;
-    color: #00114F;
+    color: #000657;
     padding: 20px;
     font-size: 35px;
     text-align: center;
@@ -30,7 +30,7 @@ body {
 
 .sidebar {
     width: 260px;
-    background-color:#EBF5FF;
+    background-color:#C9CEFF;
     padding: 20px;
     margin: 20px;
     display: flex;
@@ -67,7 +67,7 @@ body {
 }
 
 .btn-logout {
-    background-color: #002AD9;
+    background-color: #1C23AD;
     color: white;
     border: none;
     border-radius: 15px;
@@ -77,8 +77,7 @@ body {
 }
 
 .btn-logout:hover {
-    background-color: #FFBF00;
-    color: black;
+    background-color: #7C00B8;
 }
 
 .main-content {
@@ -95,7 +94,7 @@ body {
 }
 
 .main-content nav a {
-    background-color: #002AD9;
+    background-color: #1C23AD;
     color: white;
     border: none;
     border-radius: 15px;
@@ -108,8 +107,7 @@ body {
 }
 
 .main-content nav a:hover {
-    background-color: #FFBF00;
-    color: black;
+    background-color: #7C00B8;
 }
 
 .header2 {
@@ -124,13 +122,13 @@ body {
 }
 
 .header2 h1 {
-    color: #00114F;
+    color: #000657;
     font-size: 28px;
     font-family: "Stack Sans Text", sans-serif;
 }
 
 .btn-success {
-    background-color: #002AD9;
+    background-color: #1C23AD;
     color: white;
     border: none;
     border-radius: 15px;
@@ -142,9 +140,14 @@ body {
 }
 
 .btn-success:hover {
-    background-color: #4AE8FF;
-    color: black;
-    
+    background-color: #881CFF;
+}
+
+.section h2 {
+    font-family: "Stack Sans Text", sans-serif;
+    font-size: 25px;
+    margin-bottom: 8px;
+
 }
 
 .filters-container {
@@ -187,7 +190,7 @@ body {
 .filters-container button {
     padding: 14px 20px;
     margin-top: 0;
-    background: #2828A6;
+    background: #262D85;
     color: white;
     border: none;
     border-radius: 8px;
@@ -198,8 +201,7 @@ body {
 }
 
 .filters-container button:hover {
-    background: #4AE8FF;
-    color: black;
+    background: #881CFF;
 }
 
 .table-container {
@@ -216,7 +218,7 @@ table {
 }
 
 table thead {
-    background-color: #3498db;
+    background-color: #5B65C7;
     color: white;
 }
 
@@ -240,6 +242,10 @@ table tbody tr:hover {
     background-color: #f8f9fa;
 }
 
+span {
+    margin-top: 11px;
+}
+
 .table-actions {
     display: flex;
     gap: 8px;
@@ -258,7 +264,7 @@ table tbody tr:hover {
 }
 
 .btn-sm:hover {
-    color: #002AD9;
+    color: #1C23AD;
 }
 
 .form {
@@ -287,7 +293,7 @@ table tbody tr:hover {
 
 .form-content h2 {
     font-family: "Stack Sans Text", sans-serif;
-    color: #0064C9;
+    color: #505ABA;
     margin-bottom: 10px;
     font-size: 32px;
     text-align: center;
@@ -376,5 +382,5 @@ select {
 .foot {
     width: 100%;
     height: 40px;
-    background: #5EB0FF
+    background: #7E88E6;
 }
