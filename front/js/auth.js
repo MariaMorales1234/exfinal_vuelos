@@ -32,7 +32,7 @@ const redirectByRole = () => {
     if (user.role === 'administrador') {
         window.location.href = '/admin/inicio.html';
     } else if (user.role === 'gestor') {
-        window.location.href = '/gestor/dashboard.html';
+        window.location.href = '/gestor/inicio.html';
     }
 };
 // Validar sesión al cargar página

@@ -1,84 +1,63 @@
-let currentUser = null;
+let flightsData = [];
 document.addEventListener('DOMContentLoaded', async () => {
     // Validar sesión y rol
     const isValid = await validateSession();
     if (!isValid) return;
-    requireRole(['gestor', 'administrador']);
+    requireRole(['gestor']);
     // Obtener usuario actual
-    currentUser = getCurrentUser();
+    const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
-        <p><strong>${currentUser.name}</strong></p>
-        <p>${currentUser.email}</p>
-        <p><span class="badge badge-${currentUser.role}">${currentUser.role}</span></p>
+        <p><strong>${user.name}</strong></p>
+        <p>${user.email}</p>
     `;
-    // Cargar reservas del usuario
-    await loadMyReservations();
+    // Cargar vuelos para el selector
+    await loadFlightsForSelect();
+    // Cargar todas las reservas
+    await loadAllReservations();
     // Eventos
     document.getElementById('logoutBtn').addEventListener('click', async () => {
         if (confirmAction('¿Cerrar sesión?')) await handleLogout();
     });
-    // Tabs
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-    });
+    document.getElementById('btnNewReservation').addEventListener('click', openNewReservationForm);
+    document.getElementById('btnCancelReservation').addEventListener('click', closeForm);
+    document.querySelector('.close').addEventListener('click', closeForm);
+    document.getElementById('reservationForm').addEventListener('submit', handleSubmitReservation);
     document.getElementById('btnSearchByUser').addEventListener('click', handleSearchByUser);
 });
-// Cambiar tab
-const switchTab = async (tabName) => {
-    // Ocultar todos los contenidos
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    // Desactivar todos los botones
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    // Activar tab seleccionado
-    document.getElementById(tabName).classList.add('active');
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-    // Cargar datos según el tab
-    if (tabName === 'my-reservations') {
-        await loadMyReservations();
-    } else if (tabName === 'by-user') {
-        // Limpiar la búsqueda anterior
-        document.getElementById('searchUserId').value = '';
-        document.getElementById('userReservationsBody').innerHTML = '<tr><td colspan="7" style="text-align: center;">Ingrese un ID de usuario para buscar</td></tr>';
+// Cargar vuelos para el selector
+const loadFlightsForSelect = async () => {
+    try {
+        const response = await flights.getAll();
+        if (response.status === 'success' && response.data) {
+            flightsData = response.data;
+            const select = document.getElementById('flightId');
+            select.innerHTML = '<option value="">Seleccione un vuelo</option>' +
+                flightsData.map(flight => `
+                    <option value="${flight.id}">
+                        ${flight.origin} → ${flight.destination} - ${formatDate(flight.departure)}
+                    </option>
+                `).join('');
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
-// Cargar mis reservas
-const loadMyReservations = async () => {
+// Cargar TODAS las reservas (Tabla 1)
+const loadAllReservations = async () => {
     try {
-        toggleLoading(true);
-        const response = await reservationsAPI.getByUser(currentUser.id);
-        const tbody = document.getElementById('myReservationsBody');
+        const response = await reservations.getAll();
+        const tbody = document.getElementById('allReservationsBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
-            tbody.innerHTML = response.data.map(reservation => `
-                <tr>
-                    <td>${reservation.id}</td>
-                    <td>${reservation.user_id}</td>
-                    <td>#${reservation.flight_id}</td>
-                    <td>${reservation.flight ? reservation.flight.origin : 'N/A'}</td>
-                    <td>${reservation.flight ? reservation.flight.destination : 'N/A'}</td>
-                    <td>${reservation.flight ? formatDate(reservation.flight.departure) : 'N/A'}</td>
-                    <td><span class="badge badge-${reservation.status}">${reservation.status}</span></td>
-                    <td class="table-actions">
-                        ${reservation.status === 'activa' ? 
-                            `<button class="btn btn-warning btn-sm" onclick="cancelReservation(${reservation.id})">Cancelar</button>` : 
-                            '<span style="color: #95a5a6;">Cancelada</span>'}
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = response.data.map(reservation => createReservationRow(reservation)).join('');
         } else {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No tienes reservas</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No hay reservas</td></tr>';
         }
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cargar reservas', 'error');
-    } finally {
-        toggleLoading(false);
     }
 };
-// Buscar reservas por usuario
+// Buscar reservas por usuario (Tabla 2)
 const handleSearchByUser = async () => {
     const userId = document.getElementById('searchUserId').value.trim();
     if (!userId) {
@@ -86,54 +65,59 @@ const handleSearchByUser = async () => {
         return;
     }
     try {
-        toggleLoading(true);
-        const response = await reservationsAPI.getByUser(userId);
+        const response = await reservations.getByUser(userId);
         const tbody = document.getElementById('userReservationsBody');
         if (response.status === 'success' && response.data && response.data.length > 0) {
-            tbody.innerHTML = response.data.map(reservation => `
-                <tr>
-                    <td>${reservation.id}</td>
-                    <td>#${reservation.flight_id}</td>
-                    <td>${reservation.flight ? reservation.flight.origin : 'N/A'}</td>
-                    <td>${reservation.flight ? reservation.flight.destination : 'N/A'}</td>
-                    <td>${reservation.flight ? formatDate(reservation.flight.departure) : 'N/A'}</td>
-                    <td><span class="badge badge-${reservation.status}">${reservation.status}</span></td>
-                    <td class="table-actions">
-                        ${reservation.status === 'activa' ? 
-                            `<button class="btn btn-warning btn-sm" onclick="cancelReservation(${reservation.id})">Cancelar</button>` : 
-                            '<span style="color: #95a5a6;">Cancelada</span>'}
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = response.data.map(reservation => createReservationRow(reservation)).join('');
         } else {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Este usuario no tiene reservas</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Este usuario no tiene reservas</td></tr>';
         }
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al buscar reservas', 'error');
-        document.getElementById('userReservationsBody').innerHTML = '<tr><td colspan="7" style="text-align: center;">Error al buscar reservas</td></tr>';
-    } finally {
-        toggleLoading(false);
+        document.getElementById('userReservationsBody').innerHTML = 
+            '<tr><td colspan="8" style="text-align: center;">Error al buscar reservas</td></tr>';
     }
+};
+// Crear fila de reserva (reutilizable para ambas tablas)
+const createReservationRow = (reservation) => {
+    return `
+        <tr>
+            <td>${reservation.id}</td>
+            <td>${reservation.user_id}</td>
+            <td>#${reservation.flight_id}</td>
+            <td>${reservation.flight ? reservation.flight.origin : 'N/A'}</td>
+            <td>${reservation.flight ? reservation.flight.destination : 'N/A'}</td>
+            <td>${reservation.flight ? formatDate(reservation.flight.departure) : 'N/A'}</td>
+            <td><span class="badge badge-${reservation.status}">${reservation.status}</span></td>
+            <td class="table-actions">
+                ${reservation.status === 'activa' ? 
+                    `<button class="btn-sm" onclick="cancelReservation(${reservation.id})">Cancelar</button>` : 
+                    '<span>Cancelada</span>'}
+                <button class="btn-sm" onclick="deleteReservation(${reservation.id})">Eliminar</button>
+            </td>
+        </tr>
+    `;
+};
+// Abrir modal nueva reserva
+const openNewReservationForm = () => {
+    document.getElementById('formTitle').textContent = 'Nueva Reserva';
+    document.getElementById('reservationForm').reset();
+    document.getElementById('reservationId').value = '';
+    document.getElementById('reservationformcreate').style.display = 'flex';
 };
 // Cancelar reserva
 const cancelReservation = async (id) => {
     if (!confirmAction('¿Cancelar esta reserva?')) return;
     try {
-        toggleLoading(true);
-        const response = await reservationsAPI.cancel(id);
+        const response = await reservations.cancel(id);
         if (response.status === 'success') {
             showAlert('Reserva cancelada exitosamente', 'success');
-            // Recargar la tabla actual
-            const activeTab = document.querySelector('.tab-content.active').id;
-            if (activeTab === 'my-reservations') {
-                await loadMyReservations();
-            } else if (activeTab === 'by-user') {
-                // Recargar la búsqueda actual
-                const userId = document.getElementById('searchUserId').value.trim();
-                if (userId) {
-                    await handleSearchByUser();
-                }
+            await loadAllReservations();
+            // Si hay búsqueda activa, recargarla también
+            const searchUserId = document.getElementById('searchUserId').value.trim();
+            if (searchUserId) {
+                await handleSearchByUser();
             }
         } else {
             showAlert(response.message, 'error');
@@ -141,7 +125,57 @@ const cancelReservation = async (id) => {
     } catch (error) {
         console.error('Error:', error);
         showAlert('Error al cancelar reserva', 'error');
-    } finally {
-        toggleLoading(false);
     }
+};
+// Eliminar reserva
+const deleteReservation = async (id) => {
+    if (!confirmAction('¿Eliminar esta reserva permanentemente?')) return;
+    try {
+        const response = await reservations.delete(id);
+        if (response.status === 'success') {
+            showAlert('Reserva eliminada', 'success');
+            await loadAllReservations();
+            // Si hay búsqueda activa, recargarla también
+            const searchUserId = document.getElementById('searchUserId').value.trim();
+            if (searchUserId) {
+                await handleSearchByUser();
+            }
+        } else {
+            showAlert(response.message, 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al eliminar reserva', 'error');
+    }
+};
+// Manejar submit del formulario
+const handleSubmitReservation = async (e) => {
+    e.preventDefault();
+    const reservationData = {
+        user_id: parseInt(document.getElementById('userId').value),
+        flight_id: parseInt(document.getElementById('flightId').value)
+    };
+    try {
+        const response = await reservations.create(reservationData);
+        if (response.status === 'success') {
+            showAlert('Reserva creada exitosamente', 'success');
+            closeForm();
+            await loadAllReservations();
+            // Si hay búsqueda activa, recargarla también
+            const searchUserId = document.getElementById('searchUserId').value.trim();
+            if (searchUserId && searchUserId === reservationData.user_id.toString()) {
+                await handleSearchByUser();
+            }
+        } else {
+            showAlert(response.message, 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al crear reserva', 'error');
+    }
+};
+// Cerrar modal
+const closeForm = () => {
+    document.getElementById('reservationformcreate').style.display = 'none';
+    document.getElementById('reservationForm').reset();
 };

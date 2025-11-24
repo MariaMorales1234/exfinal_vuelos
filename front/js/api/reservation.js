@@ -1,4 +1,4 @@
-const reservationsAPI = {
+const reservations = {
     // Listar reservas
     getAll: async () => {
         const response = await fetch(`${API_FLIGHTS}/reservations`, {
