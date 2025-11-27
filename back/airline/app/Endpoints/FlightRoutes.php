@@ -30,6 +30,6 @@
                 $res = new FlightRepository();
                 return $res->delete($request, $response, $args);
             });
-        })->add(new Role(['administrador']))->add(new Auth());
+        })->add(new Role(['gestor','administrador']))->add(new Auth());
     };
 ?>

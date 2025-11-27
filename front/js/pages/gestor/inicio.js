@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const isValid = await validateSession();
     if (!isValid) return;
-    requireRole(['gestor']);
+    requireRole(['gestor', 'administrador']);
     const user = getCurrentUser();
     document.getElementById('userInfo').innerHTML = `
         <p><strong>${user.name}</strong></p>
