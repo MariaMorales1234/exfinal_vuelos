@@ -5,6 +5,6 @@
 
     class Nave extends Model{
         protected $table = 'naves';
-        public $timestamps = false;
+        public $timestamps = true;
     }
 ?>

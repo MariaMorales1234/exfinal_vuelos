@@ -5,7 +5,7 @@
 
     class Flight extends Model{
         protected $table  = 'flights';
-        public $timestamps = false;
+        public $timestamps = true;
         public function nave(){
             return $this->belongsTo(Nave::class, 'nave_id');
         }

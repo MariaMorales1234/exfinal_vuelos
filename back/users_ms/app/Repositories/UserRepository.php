@@ -85,7 +85,6 @@
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     throw new Exception("JSON invalido", 400);
                 }
-                // Validar que $data no sea null
                 if ($data === null) {
                     throw new Exception("Datos no proporcionados", 400);
                 }
